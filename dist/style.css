@@ -49,23 +49,44 @@ tr {
 td {
   margin: 5px;
 }
+input {
+  border: none;
+}
 .result {
-  width: 240px;
+  width: 320px;
   height: 50px;
   background-color: #fff;
 }
+
 .followUp {
   color: #000;
   font-size: small;
-  width: 240px;
-  background-color: #fff;
+  width: 320px;
+  height: 25px;
+  background-color: #ffffffea;
 }
 td > button {
-  padding: 15px;
-  font-size: large;
+  padding: 20px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-radius: 4px;
+}
+.equal {
+  background-color: #2471ff;
+  color: #fff;
+}
+.reset,
+.totalReset {
+  background-color: #ff2424;
+  color: #fff;
+  width: 100px;
 }
 .footer {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+}
+.calc {
+  display: flex;
+  align-items: center;
 }
