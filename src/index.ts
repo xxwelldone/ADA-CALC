@@ -23,9 +23,8 @@ if (reset && input) {
 }
 if (totalReset && input && track) {
   totalReset.addEventListener("click", () => {
-    selectedNumbers.forEach(() => {
-      selectedNumbers.pop();
-    });
+    selectedNumbers = [];
+
     input.value = "";
     track.innerHTML = "";
   });
@@ -43,9 +42,11 @@ function digitouOperacao(event: Event): void {
   definedOperation = element.innerText;
   if (input && track) {
     selectedNumbers.push(Number(input.value));
-    track.innerHTML = input.value + definedOperation;
+    track.innerHTML += input.value + definedOperation;
     input.value = "";
-    console.log(selectedNumbers);
+  }
+  if (selectedNumbers.length >= 2 && track && input) {
+    calculate(definedOperation);
   }
 }
 
@@ -55,41 +56,49 @@ function igual(event: Event) {
   }
   if (selectedNumbers.length === 2 && track && input) {
     track.innerHTML += input.value;
-    calculate(selectedNumbers[0], selectedNumbers[1], definedOperation);
+    calculate(definedOperation);
+  }
+  if (input) {
+    input.value = calculated.toString();
   }
 }
-function calculate(num1: number, num2: number, operation: string) {
-  console.log(selectedNumbers);
-  if (input) {
-    let calculated = 0;
+let calculated = 0;
+function calculate(operation: string) {
+  if (input && track) {
     switch (operation) {
       case "%":
-        calculated = num1 % num2;
-        input.value = calculated.toString();
+        calculated = selectedNumbers[0] % selectedNumbers[1];
+        selectedNumbers = [];
+        selectedNumbers.push(calculated);
 
         break;
       case "*":
-        calculated = num1 * num2;
-        input.value = calculated.toString();
+        calculated = selectedNumbers[0] * selectedNumbers[1];
+        selectedNumbers = [];
+        selectedNumbers.push(calculated);
 
         break;
       case "-":
-        calculated = num1 - num2;
-        input.value = calculated.toString();
+        calculated = selectedNumbers[0] - selectedNumbers[1];
+        selectedNumbers = [];
+        selectedNumbers.push(calculated);
 
         break;
       case "+":
-        calculated = num1 + num2;
-        input.value = calculated.toString();
+        calculated = selectedNumbers[0] + selectedNumbers[1];
+        selectedNumbers = [];
+        selectedNumbers.push(calculated);
 
         break;
       case "/":
-        calculated = num1 / num2;
-        input.value = calculated.toString();
+        calculated = selectedNumbers[0] / selectedNumbers[1];
+        selectedNumbers = [];
+        selectedNumbers.push(calculated);
 
         break;
 
       default:
+        input.value = "Erro inesperado";
         break;
     }
   }
