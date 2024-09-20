@@ -5,14 +5,30 @@ const equal = document.querySelector(".equal");
 const input = document.querySelector("input");
 let selectedNumbers = [];
 let definedOperation = "";
-let secondNumber = false;
+const reset = document.querySelector(".reset");
+const totalReset = document.querySelector(".totalReset");
 numbers.forEach((item) => {
     item.addEventListener("click", digitouNumero);
 });
 operations.forEach((item) => {
     item.addEventListener("click", digitouOperacao);
 });
-equal === null || equal === void 0 ? void 0 : equal.addEventListener("click", igual);
+if (equal) {
+    equal.addEventListener("click", igual);
+}
+if (reset && input) {
+    reset.addEventListener("click", () => {
+        input.value = "";
+    });
+}
+if (totalReset && input) {
+    totalReset.addEventListener("click", () => {
+        selectedNumbers.forEach(() => {
+            selectedNumbers.pop();
+        });
+        input.value = "";
+    });
+}
 function digitouNumero(event) {
     const element = event.target;
     const number = element.innerText;
@@ -27,15 +43,43 @@ function digitouOperacao(event) {
         selectedNumbers.push(Number(input.value));
         input.value = "";
         console.log(selectedNumbers);
-        secondNumber = true;
     }
 }
 function igual(event) {
-    if (input) {
+    if (input && selectedNumbers.length > 0) {
         selectedNumbers.push(Number(input.value));
     }
-    calculate(selectedNumbers[0], selectedNumbers[1], definedOperation);
+    if (selectedNumbers.length === 2) {
+        calculate(selectedNumbers[0], selectedNumbers[1], definedOperation);
+    }
 }
 function calculate(num1, num2, operation) {
     console.log(selectedNumbers);
+    if (input) {
+        let calculated = 0;
+        switch (operation) {
+            case "%":
+                calculated = num1 % num2;
+                input.value = calculated.toString();
+                break;
+            case "*":
+                calculated = num1 * num2;
+                input.value = calculated.toString();
+                break;
+            case "-":
+                calculated = num1 - num2;
+                input.value = calculated.toString();
+                break;
+            case "+":
+                calculated = num1 + num2;
+                input.value = calculated.toString();
+                break;
+            case "/":
+                calculated = num1 / num2;
+                input.value = calculated.toString();
+                break;
+            default:
+                break;
+        }
+    }
 }
