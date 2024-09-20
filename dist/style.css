@@ -19,6 +19,10 @@ a {
   align-items: center;
   justify-content: space-evenly;
 }
+.logo {
+  max-width: 83px;
+  max-height: 52px;
+}
 .item {
   background-color: #111;
   padding: 16px;
